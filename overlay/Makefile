@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-only
-# SPDX-FileCopyrightText: Copyright (c) 2023-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 DTC_FLAGS += -@
 
@@ -15,6 +15,7 @@ dtbo-y += tegra234-android.dtbo
 ifeq ($(CONFIG_TEGRA_SYSTEM_TYPE_ACK),y)
 dtbo-y += tegra234-android-kdump.dtbo
 dtbo-y += tegra234-android-crash-kernel.dtbo
+dtbo-y += tegra234-android-dummy-overlay.dtbo
 endif
 dtbo-y += tegra234-audio-overlay.dtbo
 dtbo-y += tegra234-carveouts.dtbo
