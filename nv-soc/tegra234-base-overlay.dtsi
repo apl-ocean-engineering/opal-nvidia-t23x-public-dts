@@ -329,7 +329,7 @@
 			dma-coherent;
 			iommus = <&smmu_niso1 TEGRA234_SID_QSPI0>;
 			assigned-clocks = <&bpmp TEGRA234_CLK_QSPI0_2X_PM>,
-					   <&bpmp TEGRA234_CLK_QSPI0_PM>;
+					  <&bpmp TEGRA234_CLK_QSPI0_PM>;
 			assigned-clock-parents = <&bpmp TEGRA234_CLK_PLLC>,
 						 <&bpmp TEGRA234_CLK_QSPI0_2X_PM>;
 			assigned-clock-rates = <199999998 99999999>;
