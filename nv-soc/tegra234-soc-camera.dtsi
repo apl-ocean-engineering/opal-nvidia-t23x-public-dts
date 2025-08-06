@@ -226,7 +226,7 @@
 			nvidia,version = <0>;
 			nvidia,group = <1>;
 			nvidia,frame-count = <1>;
-			nvidia,frame-size = <64>;
+			nvidia,frame-size = <128>;
 		};
 	};
 
