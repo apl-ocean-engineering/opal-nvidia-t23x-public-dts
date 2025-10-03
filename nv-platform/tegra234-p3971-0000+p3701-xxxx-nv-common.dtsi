@@ -312,6 +312,10 @@
 		status = "okay";
 	};
 
+	bwmgr {
+		status = "okay";
+	};
+
 	soctherm-oc-event {
 		status = "okay";
 	};

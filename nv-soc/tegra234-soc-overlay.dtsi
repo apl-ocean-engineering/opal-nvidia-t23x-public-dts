@@ -1097,6 +1097,14 @@
 		status = "disabled";
 	};
 
+	bwmgr {
+		compatible = "nvidia,tegra234-bpmp-bwmgr";
+		nvidia,bpmp = <&bpmp>;
+		clocks = <&bpmp TEGRA234_CLK_EMC>;
+		clock-names = "emc";
+		status = "disabled";
+	};
+
 	soctherm-oc-event {
 		compatible = "nvidia,tegra234-oc-event";
 		nvidia,bpmp = <&bpmp>;

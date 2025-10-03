@@ -25,6 +25,10 @@
 		status = "okay";
 	};
 
+	bwmgr {
+		status = "okay";
+	};
+
 	scf-pmu {
 		status = "okay";
 	};
