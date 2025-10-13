@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2022-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2022-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 / {
 	bus@0 {
@@ -87,6 +87,7 @@
 			nvidia,phy-iface-mode = <0>;
 			nvidia,phy-reset-gpio = <&gpio TEGRA234_MAIN_GPIO(Y, 1) 0>;
 			nvidia,mdio_addr = <0>;
+			nvidia,pps_op_ctrl = <4>;
 
 			mdio {
 				compatible = "nvidia,eqos-mdio";
@@ -108,7 +109,10 @@
 			status = "okay";
 			compatible = "nvidia,tegra234-nvpps";
 			primary-emac = <&mgbe0>;
-			sec-emac = <&mgbe0>;
+			ptp_tsc_sync_trig_interval = <3>;
+			ptp_tsc_lock_threshold = <20000>; //20us
+			ts-capture-interval = <1000>;
+			nvpps-event-mode-init = <2>; /* 1: GPIO mode, 2: TIMER mode */
 			reg = <0x0 0xc6a0000 0x0 0x1000>;
 		};
 	};
