@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2022-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2022-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 #include <dt-bindings/power/tegra234-powergate.h>
 
@@ -22,6 +22,7 @@
 			status = "disabled";
 			memory-region = <&fb0_reserved>;
 			power-domains = <&bpmp TEGRA234_POWER_DOMAIN_DISP>;
+			#power-domain-cells = <1>;
 			clocks = <&bpmp TEGRA234_CLK_HUB>,
 				 <&bpmp TEGRA234_CLK_DISP>,
 				 <&bpmp TEGRA234_CLK_NVDISPLAY_P0>,
@@ -88,6 +89,7 @@
 			height = <0>;
 			stride = <0>;
 			format = "x8b8g8r8";
+			display = <&nvdisplay>;
 		};
 	};
 
@@ -265,6 +267,3 @@
 		};
 	};
 };
-
-/* Bug 5411101 */
-/delete-node/ &{/chosen/framebuffer};
