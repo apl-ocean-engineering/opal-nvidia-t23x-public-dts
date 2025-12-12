@@ -255,6 +255,10 @@
 		status = "disabled";
 		memory-region = <&fb0_reserved>;
 		nvidia,disp-sw-soc-chip-id = <0x2350>;
+		nvidia,max-disp-clk-rate-khz = <0 0>;
+		nvidia,max-hub-clk-rate-khz = <0>;
+		nvidia,iso-bandwidth-kbps = <0>;
+		nvidia,dram-floor-kbps = <0>;
 		interconnects = <&mc TEGRA234_MEMORY_CLIENT_NVDISPLAYR &emc>,
 			      <&mc TEGRA234_MEMORY_CLIENT_NVDISPLAYR1 &emc>;
 		interconnect-names = "dma-mem", "read-1";
