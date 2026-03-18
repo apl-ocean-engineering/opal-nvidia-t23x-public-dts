@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2024-2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2024-2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
 #include "tegra234-camera-p3762-a00.dtsi"
 #include "dt-bindings/gpio/tegra234-gpio.h"
@@ -20,17 +20,6 @@
 		target-path = "/";
 		__overlay__ {
 			bus@0 {
-				/* set camera gpio direction to output */
-				gpio@2200000 {
-					camera-control-output-low {
-						gpio-hog;
-						output-low;
-						gpios = <CAM0_RST_L 0 CAM0_PWDN 0
-								CAM1_RST_L 0 CAM1_PWDN 0>;
-						label = "cam0-rst", "cam0-pwdn",
-								"cam1-rst", "cam1-pwdn";
-					};
-				};
 				i2c@3180000 {
 					max96712_b@62 {
 						compatible = "nvidia,max96712";
