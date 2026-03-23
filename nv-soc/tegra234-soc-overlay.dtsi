@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2022-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2022-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 //
 // This file contains the DT nodes of T234 which are not in base/tegra234.dtsi
 
@@ -318,6 +318,10 @@
 			};
 		};
 
+		serial@3100000 {
+			iommus = <&smmu_niso0 TEGRA234_SID_GPCDMA>;
+		};
+
 		serial@3110000 {
 			compatible = "nvidia,tegra234-uart", "nvidia,tegra20-uart";
 			reg = <0x0 0x03110000 0x0 0x10000>;
@@ -325,6 +329,10 @@
 			clocks = <&bpmp TEGRA234_CLK_UARTB>;
 			resets = <&bpmp TEGRA234_RESET_UARTB>;
 			status = "disabled";
+		};
+
+		serial@3140000 {
+			iommus = <&smmu_niso0 TEGRA234_SID_GPCDMA>;
 		};
 
 		tachometer@39c0000 {
