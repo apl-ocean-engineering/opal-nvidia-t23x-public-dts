@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2017-2024, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2017-2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 
 /dts-v1/;
 /plugin/;
@@ -58,14 +58,6 @@
 				};
 			};
 			bus@0 {
-				gpio@2200000 {
-					camera-control-output-low {
-						gpio-hog;
-						output-low;
-						gpios = <CAM0_RST_L 0>;
-						label = "cam0-rst";
-					};
-				};
 				host1x@13e00000 {
 					nvcsi@15a00000 {
 						num-channels = <1>;

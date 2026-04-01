@@ -1,20 +1,11 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2017-2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2017-2026 NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 #include <dt-bindings/clock/tegra234-clock.h>
 
 #define CAM0_PWDN	TEGRA234_AON_GPIO(AA, 4)
 
 / {
-	gpio@c2f0000 {
-		camera-control-output-high {
-			gpio-hog;
-			output-high;
-			gpios = <CAM0_PWDN 0>;
-			label = "cam0-pwdn";
-		};
-	};
-
 	tegra-capture-vi {
 		nvidia,vi-mapping =
 			<0 0>,
