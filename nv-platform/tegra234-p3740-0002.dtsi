@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2023-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 #include "nv-soc/tegra234-soc-audio-dai-links.dtsi"
 
@@ -104,6 +104,16 @@
 		};
 	};
 
+	/* TSC signal generator for cam_fsync (external fsync) - used by SIPL without camera overlay */
+	tsc_sig_gen@c6a0000 {
+		status = "okay";
+		generator@380 {
+			status = "okay";
+		};
+		fsync-groups {
+			status = "disabled";
+		};
+	};
 
 	sound {
 		clocks = <&bpmp TEGRA234_CLK_PLLA>,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2024, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2024-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 #include <dt-bindings/input/linux-event-codes.h>
 #include <dt-bindings/input/gpio-keys.h>
@@ -184,6 +184,17 @@
 	chosen {
 		bootargs = "console=ttyTCU0,115200n8";
 		stdout-path = "serial0:115200n8";
+	};
+
+	/* TSC signal generator for cam_fsync (external fsync) - used by SIPL without camera overlay */
+	tsc_sig_gen@c6a0000 {
+		status = "okay";
+		generator@380 {
+			status = "okay";
+		};
+		fsync-groups {
+			status = "disabled";
+		};
 	};
 
         display@13800000 {

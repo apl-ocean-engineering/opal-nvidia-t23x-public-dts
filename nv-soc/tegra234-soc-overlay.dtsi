@@ -1121,7 +1121,7 @@
 
 	/* TSC Signal Generators */
 	tsc_sig_gen@c6a0000 {
-		compatible = "nvidia,tegra234-cam-cdi-tsc";
+		compatible = "nvidia,tegra234-cdi-tsc";
 		ranges = <0x0 0x0 0xc6a0000 0x10000>;
 		reg = <0x0 0xc6a0000 0x0 0x18>;
 		#address-cells = <1>;

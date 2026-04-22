@@ -284,6 +284,7 @@
 		target-path = "/";
 		__overlay__ {
 			tsc_sig_gen@c6a0000 {
+				compatible = "nvidia,tegra234-cam-cdi-tsc";
 				status = "okay";
 				generator@380 {
 					status = "okay";
