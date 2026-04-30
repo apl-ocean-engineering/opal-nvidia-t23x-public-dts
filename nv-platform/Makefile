@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-only
-# SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+# SPDX-FileCopyrightText: Copyright (c) 2023-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 DTC_FLAGS += -@
 
@@ -11,6 +11,7 @@ makefile-path := t23x/nv-public/nv-platform
 
 dtb-y += tegra234-p3737-0000+p3701-0000-nv.dtb
 dtb-y += tegra234-p3737-0000+p3701-0004-nv.dtb
+dtb-y += tegra234-p3737-0000+p3701-0004-nv-super.dtb
 dtb-y += tegra234-p3737-0000+p3701-0005-nv.dtb
 dtb-y += tegra234-p3737-0000+p3701-0008-nv.dtb
 dtb-y += tegra234-p3740-0002+p3701-0008-nv.dtb
