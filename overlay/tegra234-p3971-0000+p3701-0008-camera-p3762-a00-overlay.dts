@@ -280,13 +280,29 @@
 			};
 		};
 	};
+	/* cam_cdi_tsc driver node: separate DT node so /dev/cdi_tsc is
+	 * available for Argus external fsync.  Uses the same generator@380
+	 * and gpio_pinmux as cam_fsync — safe because Argus and nvsipl_camera
+	 * are never used simultaneously.  cam_cdi_tsc uses non-exclusive
+	 * devm_ioremap so both drivers can coexist at boot.
+	 */
 	fragment-cam-cdi-tsc@0 {
 		target-path = "/";
 		__overlay__ {
-			tsc_sig_gen@c6a0000 {
+			tsc_sig_gen_argus@c6a0000 {
 				compatible = "nvidia,tegra234-cam-cdi-tsc";
+				ranges = <0x0 0x0 0xc6a0000 0x10000>;
+				reg = <0x0 0xc6a0000 0x0 0x18>;
+				#address-cells = <1>;
+				#size-cells = <1>;
 				status = "okay";
+
 				generator@380 {
+					reg = <0x380 0x80>;
+					freq_hz = <30>;
+					duty_cycle = <25>;
+					offset_ms = <0>;
+					gpio_pinmux = <&gpio_aon TEGRA234_AON_GPIO(BB, 2) GPIO_ACTIVE_LOW>;
 					status = "okay";
 				};
 			};
