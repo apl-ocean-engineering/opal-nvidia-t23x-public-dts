@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-only
-// SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+// SPDX-FileCopyrightText: Copyright (c) 2023-2026, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
 
 #include <dt-bindings/gpio/tegra234-gpio.h>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
@@ -12,6 +12,12 @@
 / {
 	bus@0 {
 		spi@3270000 {
+			flash@0 {
+				nvidia,tx-clk-tap-delay = <0>;
+				nvidia,rx-clk-tap-delay = <4>;
+			};
+
+			/* prod-settings deprecated */
 			prod-settings {
 				#prod-cells = <4>;
 				prod {
