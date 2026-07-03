@@ -1,0 +1,338 @@
+/*
+ * Copyright (c) 2022, NVIDIA CORPORATION.  All rights reserved.
+ * Copyright (c) 2023 Antmicro <www.antmicro.com>
+ * Copyright (c) 2026, University of Washington
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This DTSI file implements support for dual Allied Vision
+ * Alvium 1800-C cameras attached to the J7 connector on the 
+ * Antmicro Jetson Orin Baseboard (JOB) via a Capable Robot 
+ * Y-flex cable
+ *
+ * We use only 2 lanes for each camera, independent of where
+ * CSI3 is routed with R122/R108
+ *
+ * ====== Power management ======
+ * CSI A and CSA B connectors feature GPIO-controlled 5V and 3V3 power
+ * supplies. Alvium cameras use the 5V rails, controlled by following regulators:
+ * - job_reg_csia_5v for CSI A
+ * - job_reg_csib_5v for CSI B
+ *
+ *
+ * Reset pins of Alvim are not routed on JOB and are pulled high, so GPIO
+ * reset functionality is not available (?)
+ *
+ * Trigger pins for the Alvium are routed on JOB to the following nets:
+ *
+ * - Camera 0: VSYNC_CAM0_3V3 / VSYNC_CAM0 - SoM pin 114 - GPIO H.6
+ * - Camera 1: VSYNC_CAM1_3V3 / VSYNC_CAM1 - SoM pin 120 - GPIO AC.0
+ *
+ * ====== I2C routing ======
+ * - Camera 0: SCL/SDA_CAM0 (job_cam0_i2c)
+ * - Camera 1: SCL/SDA_CAM1 (job_cam1_i2c)
+ *
+ * ====== CSI lane mapping ======
+ * - Camera 0: CSI0 = CSI_A [CLK, D0, D1]
+ * - Camera 1: CSI2 = CSI_C [CLK, D0, D1]
+ *
+ * ====== CSI lane polarity ======
+ *
+ * See Jetson Orin NX Design Guide DG-10931-001 fig.10-1.:
+ * - CSI0_D1 is inverted on SoM
+ * - CSI1_D0 is inverted on SoM
+ */
+
+
+ // Camera nodes
+ &job_cam0_i2c {
+	status = "okay";
+
+ 	avt_cam0: camera@3c {
+		status = "okay";
+		compatible = "alliedvision,avt_csi2";
+		reg = <0x3c>;
+		nvidia,no-sensor-bus-introspection;
+		vdd-supply = <&job_reg_csia_5v>;
+
+		mode0 {
+			mclk_khz = "24000";
+			num_lanes = "2";
+			tegra_sinterface = "serial_a";
+			phy_mode = "DPHY";
+			discontinuous_clk = "yes";
+			dpcm_enable = "false";
+			cil_settletime = "0";
+			embedded_metadata_height = "0";
+
+			/*
+			 * even with a 2-lane camera this controls the whole
+			 * SCIL - 4 lanes of both CSI 0 and CSI 1!
+			 */
+			lane_polarity = "6";
+
+			csi_pixel_bit_depth = "4";
+			active_w = "5488";
+			active_h = "4112";
+			pixel_t = "bayer_bggr";
+			readout_orientation = "0";
+			line_length = "5488";
+			inherent_gain = "1";
+			mclk_multiplier = "31.25";
+			pix_clk_hz = "750000000";
+
+			gain_factor = "16";
+			framerate_factor = "1000000";
+			exposure_factor = "1000000";
+			min_gain_val = "16"; /* 1.0 */
+			max_gain_val = "256"; /* 16.0 */
+			step_gain_val = "1"; /* 0.125 */
+			min_hdr_ratio = "1";
+			max_hdr_ratio = "64";
+			min_framerate = "1500000"; /* 1.5 */
+			max_framerate = "30000000"; /* 30 */
+			step_framerate = "1";
+			min_exp_time = "34"; /* us */
+			max_exp_time = "550385"; /* us */
+			step_exp_time = "1";
+		};
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				avt_cam0_out: endpoint {
+					status = "okay";
+					port-index = <0>;
+					bus-width = <2>;
+					remote-endpoint = <&avt_nvcsi_in0>;
+				};
+			};
+		};
+	};
+};
+
+&job_cam1_i2c {
+	status = "okay";
+
+	avt_cam1: camera@3c {
+		compatible = "alliedvision,avt_csi2";
+		reg = <0x3c>;
+		nvidia,no-sensor-bus-introspection;
+		vdd-supply = <&job_reg_csia_5v>;
+		status = "okay";
+
+		mode0 {
+			mclk_khz = "24000";
+			num_lanes = "2";
+			tegra_sinterface = "serial_c";
+			phy_mode = "DPHY";
+			discontinuous_clk = "yes";
+			dpcm_enable = "false";
+			cil_settletime = "0";
+			embedded_metadata_height = "0";
+
+			csi_pixel_bit_depth = "4";
+			active_w = "5488";
+			active_h = "4112";
+			pixel_t = "bayer_bggr";
+			readout_orientation = "0";
+			line_length = "5488";
+			inherent_gain = "1";
+			mclk_multiplier = "31.25";
+			pix_clk_hz = "750000000";
+
+			gain_factor = "16";
+			framerate_factor = "1000000";
+			exposure_factor = "1000000";
+			min_gain_val = "16"; /* 1.0 */
+			max_gain_val = "256"; /* 16.0 */
+			step_gain_val = "1"; /* 0.125 */
+			min_hdr_ratio = "1";
+			max_hdr_ratio = "64";
+			min_framerate = "1500000"; /* 1.5 */
+			max_framerate = "30000000"; /* 30 */
+			step_framerate = "1";
+			min_exp_time = "34"; /* us */
+			max_exp_time = "550385"; /* us */
+			step_exp_time = "1";
+		};
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+				avt_cam1_out: endpoint {
+					status = "okay";
+					port-index = <2>;
+					bus-width = <2>;
+					remote-endpoint = <&avt_nvcsi_in2>;
+				};
+			};
+		};
+	};
+};
+
+&gpio {
+
+
+	// Left stereo camera on J7
+	// It uses VSYNC_CAM2_1 == pin 114 == CAM0_PWDN == GPIO3_PP.04 == gpiochip1.96
+	vsync-cam2-1 {
+		gpio-hog;
+		output-low;
+		gpios = <TEGRA234_MAIN_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
+		label = "avt_left_sync";
+		status = "okay";
+	};
+
+	// Right stereo camera on J7
+	// It uses VSYNC_CAM2_2 == pin 130 == GPIO06 == GPIO3_PCC.03 == gpiochip2.15
+	//  == ball name "SPI2_CS0"
+	//
+	// Strangely, when enabled, it breaks access to the QSPI?
+	//
+	// vsync-cam2-2 {
+	// 	gpio-hog;
+	// 	output-low;
+	// 	gpios = <TEGRA234_MAIN_GPIO(AC, 0) GPIO_ACTIVE_HIGH>;
+	// 	label = "avt_right_sync";
+	// 	status = "okay";
+	// };
+
+};
+
+/ {
+	bus@0 {
+		host1x@13e00000 {
+			nvcsi@15a00000 {
+				num-channels = <4>;
+				#address-cells = <1>;
+				#size-cells = <0>;
+				channel@0 {
+					reg = <0>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							avt_nvcsi_in0: endpoint@0 {
+								port-index = <0>;
+								bus-width = <2>;
+								remote-endpoint = <&avt_cam0_out>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							avt_nvcsi_out0: endpoint@1 {
+								remote-endpoint = <&avt_vi_in0>;
+							};
+						};
+					};
+				};
+				channel@1 {
+					reg = <1>;
+					ports {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						port@0 {
+							reg = <0>;
+							avt_nvcsi_in2: endpoint@0 {
+								port-index = <2>;
+								bus-width = <2>;
+								remote-endpoint = <&avt_cam1_out>;
+							};
+						};
+						port@1 {
+							reg = <1>;
+							avt_nvcsi_out2: endpoint@1 {
+								remote-endpoint = <&avt_vi_in2>;
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+
+	tegra-capture-vi {
+		num-channels = <4>;
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+				avt_vi_in0: endpoint {
+					port-index = <0>;
+					bus-width = <2>;
+					remote-endpoint = <&avt_nvcsi_out0>;
+				};
+			};
+			port@1 {
+				reg = <1>;
+				avt_vi_in2: endpoint {
+					port-index = <2>;
+					bus-width = <2>;
+					remote-endpoint = <&avt_nvcsi_out2>;
+				};
+			};
+		};
+	};
+
+	tcp: tegra-camera-platform {
+		compatible = "nvidia, tegra-camera-platform";
+		status = "okay";
+		/**
+		* Physical settings to calculate max ISO BW
+		*
+		* num_csi_lanes = <>;
+		* Total number of CSI lanes when all cameras are active
+		*
+		* max_lane_speed = <>;
+		* Max lane speed in Kbit/s
+		*
+		* min_bits_per_pixel = <>;
+		* Min bits per pixel
+		*
+		* vi_peak_byte_per_pixel = <>;
+		* Max byte per pixel for the VI ISO case
+		*
+		* vi_bw_margin_pct = <>;
+		* Vi bandwidth margin in percentage
+		*
+		* max_pixel_rate = <>;
+		* Max pixel rate in Kpixel/s for the ISP ISO case
+		*
+		* isp_peak_byte_per_pixel = <>;
+		* Max byte per pixel for the ISP ISO case
+		*
+		* isp_bw_margin_pct = <>;
+		* Isp bandwidth margin in percentage
+		*/
+		num_csi_lanes = <>;
+		max_lane_speed = <1500000>;
+		min_bits_per_pixel = <10>;
+		vi_peak_byte_per_pixel = <2>;
+		vi_bw_margin_pct = <25>;
+		max_pixel_rate = <240000>;
+		isp_peak_byte_per_pixel = <5>;
+		isp_bw_margin_pct = <25>;
+	};
+};
