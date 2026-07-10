@@ -14,7 +14,19 @@
 
 &gen2_i2c {
 	job_gpio_expander: gpio@20 {
-		compatible = "nxp,pcal6408";
+	/* @trisect
+		The chip is really a "nxp,pcal6408"
+		However support for that chip is included in the gpio-pca953x
+		driver in Linux 6.1, and the driver is build by default into the
+		L4T kernel (not as a module).   Antmicro provide a patched kernel,
+		As a short cut, rather than build a custom kernel we mislabel
+		the chip here.  According to the pca653x compatibility list:
+
+		https://docs.kernel.org/driver-api/gpio/pca953x.html
+
+		and the pca953x code, the pcal9554b and 6408 are treated identically.
+		*/
+		compatible = "nxp,pcal9554b";
 		status = "okay";
 		reg = <0x20>;
 		gpio-controller;
