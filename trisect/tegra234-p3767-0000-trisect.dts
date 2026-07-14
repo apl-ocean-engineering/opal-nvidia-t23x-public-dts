@@ -2,7 +2,7 @@
  * Top level DTS file for CVM:P3767-0000 and CVB:antmicro-job.
  *
  * Copyright (c) 2021-2022, NVIDIA CORPORATION.  All rights reserved.
- * Copyright (c) 2026 Antmicro <www.antmicro.com>
+ * Copyright (c) 2023 Antmicro <www.antmicro.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  */
 
 /dts-v1/;
-#include "nv-platform/tegra234-p3768-0000+p3767-0005-nv-super.dts"
+#include "nv-platform/tegra234-p3768-0000+p3767-0000-nv.dts"
 #include "antmicro/tegra234-antmicro-job.dtsi"
 
 /* AVT cameras */
@@ -25,6 +25,6 @@
 / {
 	nvidia,dtsfilename = __FILE__;
 	nvidia,dtbbuildtime = __DATE__, __TIME__;
-	compatible = "nvidia,p3768-0000+p3767-0005-super", "nvidia,p3767-0005", "nvidia,tegra234";
-	model = "NVIDIA Orin Nano 8GB SoM on Antmicro Jetson Orin Baseboard (Super) with Dual AVT cameras";
+	compatible = "antmicro,job+p3767-0000", "nvidia,p3767-0000", "nvidia,tegra234", "nvidia,tegra23x";
+	model = "NVIDIA Orin NX SoM on Antmicro Jetson Orin Baseboard";
 };

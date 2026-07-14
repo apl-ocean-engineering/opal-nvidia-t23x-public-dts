@@ -58,7 +58,10 @@
 
 // Force camera regulators on
 &job_reg_csia_5v {
-	/* @trisect This forces the regulator ON and keeps it on */
+	/* @trisect The current avt_csi2 driver doesn't enable the 
+	regulator on startup.
+
+	This forces the regulator ON and keeps it on */
 	regulator-always-on;
 };
 
