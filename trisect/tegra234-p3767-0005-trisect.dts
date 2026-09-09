@@ -20,7 +20,9 @@
 
 /* AVT cameras */
 #include "tegra234-alvium-camera-dual-j7.dtsi"
-#include "tegra234-imx477-j8.dtsi"
+
+/* Does not currently work */
+/*#include "tegra234-imx477-j8.dtsi"*/
 
 / {
 	nvidia,dtsfilename = __FILE__;

@@ -89,13 +89,16 @@
  * - CSI1_D0 is inverted on SoM
  */
 
-
 &job_reg_csib_5v {
 	/* @trisect This forces the regulator ON and keeps it on */
 	regulator-always-on;
 };
 
- &job_cam3_i2c {
+
+
+// IMX477 on J8 connector port A
+
+&job_cam2_i2c {
 
 	imx477_cam0: imx477@1a {
 		compatible = "ridgerun,imx477";
@@ -121,7 +124,7 @@
 		mode0 { /* IMX477_MODE_4032X3040 */
 			mclk_khz = "24000";
 			num_lanes = "2";
-			tegra_sinterface = "serial_c";
+			tegra_sinterface = "serial_b";
 			phy_mode = "DPHY";
 			discontinuous_clk = "no";
 			dpcm_enable = "false";
@@ -161,7 +164,7 @@
 		mode1 { /* IMX477_MODE_1920X1080 */
 			mclk_khz = "24000";
 			num_lanes = "2";
-			tegra_sinterface = "serial_c";
+			tegra_sinterface = "serial_b";
 			phy_mode = "DPHY";
 			discontinuous_clk = "no";
 			dpcm_enable = "false";
@@ -201,7 +204,7 @@
 		mode2 { /* IMX477_MODE_1920X1440 */
 			mclk_khz = "24000";
 			num_lanes = "2";
-			tegra_sinterface = "serial_c";
+			tegra_sinterface = "serial_b";
 			phy_mode = "DPHY";
 			discontinuous_clk = "no";
 			dpcm_enable = "false";
@@ -241,7 +244,7 @@
 		mode3 { /* IMX477_MODE_2028X1520 */
 			mclk_khz = "24000";
 			num_lanes = "2";
-			tegra_sinterface = "serial_c";
+			tegra_sinterface = "serial_b";
 			phy_mode = "DPHY";
 			discontinuous_clk = "no";
 			dpcm_enable = "false";
@@ -285,7 +288,7 @@
 			port@0 {
 				reg = <0>;
 				rbpcv3_imx477_out0: endpoint {
-					port-index = <2>;
+					port-index = <1>;
 					bus-width = <2>;
 					// Following copied from AVT configuration.
 					// Not tested yet.
@@ -308,6 +311,7 @@
 		status = "okay";
 	};
 };
+
 
 / {
 
@@ -344,6 +348,9 @@
 						};
 					};
 				};
+
+
+
 			};
 		};
 	};

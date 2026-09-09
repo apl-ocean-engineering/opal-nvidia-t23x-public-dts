@@ -223,7 +223,7 @@
 	// Left stereo camera on J7
 	// It uses VSYNC_CAM2_1 == pin 114 == CAM0_PWDN == GPIO3_PP.04 == gpiochip1.96
 	vsync-cam2-1 {
-		gpio-hog;
+		/*gpio-hog;*/
 		output-low;
 		gpios = <TEGRA234_MAIN_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
 		label = "avt_left_sync";
@@ -367,9 +367,9 @@
 		* isp_bw_margin_pct = <>;
 		* Isp bandwidth margin in percentage
 		*/
-		num_csi_lanes = <>;
+		num_csi_lanes = <4>;
 		max_lane_speed = <1500000>;
-		min_bits_per_pixel = <10>;
+		min_bits_per_pixel = <8>;
 		vi_peak_byte_per_pixel = <2>;
 		vi_bw_margin_pct = <25>;
 		max_pixel_rate = <240000>;
