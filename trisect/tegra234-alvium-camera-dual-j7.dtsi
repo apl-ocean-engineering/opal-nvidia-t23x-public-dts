@@ -250,7 +250,7 @@
 	bus@0 {
 		host1x@13e00000 {
 			nvcsi@15a00000 {
-				num-channels = <2>;
+				num-channels = <3>;
 				#address-cells = <1>;
 				#size-cells = <0>;
 				channel@0 {
