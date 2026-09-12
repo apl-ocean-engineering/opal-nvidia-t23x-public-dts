@@ -2764,6 +2764,7 @@
 			clocks = <&bpmp TEGRA234_CLK_UARTA>;
 			resets = <&bpmp TEGRA234_RESET_UARTA>;
 			dmas = <&gpcdma 8>, <&gpcdma 8>;
+			iommus = <&smmu_niso0 TEGRA234_SID_GPCDMA>;
 			dma-names = "rx", "tx";
 			status = "disabled";
 		};
@@ -2775,6 +2776,7 @@
 			clocks = <&bpmp TEGRA234_CLK_UARTE>;
 			resets = <&bpmp TEGRA234_RESET_UARTE>;
 			dmas = <&gpcdma 20>, <&gpcdma 20>;
+			iommus = <&smmu_niso0 TEGRA234_SID_GPCDMA>;
 			dma-names = "rx", "tx";
 			status = "disabled";
 		};
