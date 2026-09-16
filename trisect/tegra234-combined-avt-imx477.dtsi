@@ -244,7 +244,7 @@
 		// Technically, this isn't connected...
 		reset-gpios = <&gpio TEGRA234_MAIN_GPIO(H, 0) GPIO_ACTIVE_HIGH>; 
 
-		mode0 { /* IMX477_MODE_4032X3040 */
+		mode0 { /* IMX477_MODE_3840x2160 */
 			mclk_khz = "24000";
 			num_lanes = "2";
 			tegra_sinterface = "serial_b";
@@ -254,13 +254,13 @@
 			cil_settletime = "0";
 			lane_polarity = "6";
 
-			active_w = "4032";
-			active_h = "3040";
+			active_w = "3840";
+			active_h = "2160";
 			mode_type = "bayer";
 			pixel_phase = "rggb";
 			csi_pixel_bit_depth = "10";
 			readout_orientation = "90";
-			line_length = "9024";
+			line_length = "7680";
 			inherent_gain = "1";
 			mclk_multiplier = "80";
 			pix_clk_hz = "300000000";
@@ -301,7 +301,7 @@
 			pixel_phase = "rggb";
 			csi_pixel_bit_depth = "10";
 			readout_orientation = "90";
-			line_length = "9024";
+			line_length = "3840";
 			inherent_gain = "1";
 			mclk_multiplier = "80";
 			pix_clk_hz = "300000000";
@@ -563,6 +563,7 @@
 		 * in the module's specsheet from the vendor.
 		 */
 		modules {
+			status = "okay";
 
 			cam_module0: module0 {
 				badge = "antmicro_front_imx477";
@@ -570,10 +571,15 @@
 				orientation = "1";
 				status = "okay";
 				cam_module0_drivernode0: drivernode0 {
-					status = "okay";
+					// status = "okay";
+					// pcl_id = "v4l2_sensor";
+
 					pcl_id = "v4l2_sensor";
-					devname = "imx477 18-001a";
-					proc-device-tree = "/proc/device-tree/i2c@3180000/avt_pca9548@70/i2c@2/imx477@1a";
+					sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@3180000/pca9548@70/i2c@2/imx477@1a";
+
+
+					// devname = "imx477 18-001a";
+					// proc-device-tree = "/proc/device-tree/bus@0/i2c@3180000/pca9548@70/i2c@2/imx477@1a";
 				};
 			};
 		};
