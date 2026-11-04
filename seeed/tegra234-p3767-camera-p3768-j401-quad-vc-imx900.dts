@@ -342,7 +342,6 @@
 									tegra_sinterface         = "serial_c";
 									embedded_metadata_height = "1";
 									readout_orientation      = "0";
-									lane_polarity            = "6";
 
 									// ----------------------------------------------------
 									// If you want to use GStreamer with nvarguscamerasrc
@@ -455,6 +454,7 @@
 									tegra_sinterface         = "serial_b";
 									embedded_metadata_height = "1";
 									readout_orientation      = "0";
+									lane_polarity            = "6";
 
 									// ----------------------------------------------------
 									// If you want to use GStreamer with nvarguscamerasrc
@@ -519,13 +519,12 @@
 							};
 						};
 					};
+
 					i2c@1 {
 						status = "okay";
 						reg = <1>;
 						#address-cells = <1>;
 						#size-cells = <0>;
-
-
 
 						vc_mipi_cam3: vc_mipi@1a {
 
@@ -622,13 +621,6 @@
 						};
 					};
 				};
-				lens_imx477@RBPCV3 {
-					min_focus_distance = "0.0";
-					hyper_focal = "0.0";
-					focal_length = "3.04";
-					f_number = "2.0";
-					aperture = "0.0";
-				};
 			};
 
 			tcp: tegra-camera-platform {
@@ -678,59 +670,39 @@
 				 */
 				modules {
 					cam_module0: module0 {
-						badge = "topleft_RBP194";
+						badge = "imx900_cam0";
 						position = "topleft";
 						orientation = "1";
 						cam_module0_drivernode0: drivernode0 {
 							pcl_id = "v4l2_sensor";
-							devname = "imx477 12-001a";
 							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/cam_i2cmux/i2c@0/vc_mipi@1a";
-						};
-						cam_module0_drivernode1: drivernode1 {
-							pcl_id = "v4l2_lens";
-							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/lens_imx477@RBPCV3";
 						};
 					};
 					cam_module1: module1 {
-						badge = "topright_RBP194";
+						badge = "imx900_cam1";
 						position = "topright";
 						orientation = "1";
 						cam_module1_drivernode0: drivernode0 {
 							pcl_id = "v4l2_sensor";
-							devname = "imx477 10-001a";
 							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/cam_i2cmux2/i2c@0/vc_mipi@1a";
-						};
-						cam_module1_drivernode1: drivernode1 {
-							pcl_id = "v4l2_lens";
-							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/lens_imx477@RBPCV3/";
 						};
 					};
 					cam_module2: module2 {
-						badge = "bottomleft_RBP194";
+						badge = "imx900_cam2";
 						position = "bottomleft";
 						orientation = "1";
 						cam_module0_drivernode2: drivernode0 {
 							pcl_id = "v4l2_sensor";
-							devname = "imx477 11-001a";
 							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/cam_i2cmux/i2c@1/vc_mipi@1a";
-						};
-						cam_module0_drivernode3: drivernode1 {
-							pcl_id = "v4l2_lens";
-							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/lens_imx477@RBPCV3";
 						};
 					};
 					cam_module3: module3 {
-						badge = "bottomright_RBP194";
+						badge = "imx900_cam3";
 						position = "bottomright";
 						orientation = "1";
 						cam_module1_drivernode2: drivernode0 {
 							pcl_id = "v4l2_sensor";
-							devname = "imx477 9-001a";
 							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/cam_i2cmux2/i2c@1/vc_mipi@1a";
-						};
-						cam_module1_drivernode3: drivernode1 {
-							pcl_id = "v4l2_lens";
-							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/lens_imx477@RBPCV3/";
 						};
 					};
 				};
